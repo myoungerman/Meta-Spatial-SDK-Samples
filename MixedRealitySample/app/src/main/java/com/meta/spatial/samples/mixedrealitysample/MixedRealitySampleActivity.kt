@@ -7,6 +7,7 @@
 
 package com.meta.spatial.samples.mixedrealitysample
 
+//import com.meta.spatial.castinputforward.CastInputForwardFeature
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
@@ -14,8 +15,8 @@ import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 import android.widget.Button
-import com.meta.spatial.castinputforward.CastInputForwardFeature
 import com.meta.spatial.core.Entity
+import com.meta.spatial.core.Query
 import com.meta.spatial.core.SpatialFeature
 import com.meta.spatial.core.Vector3
 import com.meta.spatial.mruk.AnchorProceduralMesh
@@ -24,17 +25,17 @@ import com.meta.spatial.mruk.MRUKFeature
 import com.meta.spatial.mruk.MRUKLabel
 import com.meta.spatial.mruk.MRUKLoadDeviceResult
 import com.meta.spatial.mruk.MRUKSystem
+import com.meta.spatial.physics.Physics
+import com.meta.spatial.physics.PhysicsCollisionCallbackEventArgs
 import com.meta.spatial.physics.PhysicsFeature
-import com.meta.spatial.physics.PhysicsOutOfBoundsSystem
+import com.meta.spatial.physics.PhysicsState
 import com.meta.spatial.toolkit.AppSystemActivity
+import com.meta.spatial.toolkit.AvatarBody
 import com.meta.spatial.toolkit.Mesh
 import com.meta.spatial.toolkit.PanelRegistration
 import com.meta.spatial.vr.LocomotionSystem
 import com.meta.spatial.vr.VRFeature
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
 class MixedRealitySampleActivity : AppSystemActivity() {
 
@@ -45,24 +46,20 @@ class MixedRealitySampleActivity : AppSystemActivity() {
   private var gotAllAnchors = false
   private var debug = false
   private lateinit var procMeshSpawner: AnchorProceduralMesh
+  var foundBody = false
 
   override fun registerFeatures(): List<SpatialFeature> {
     val features =
         mutableListOf<SpatialFeature>(
             PhysicsFeature(spatial), VRFeature(this), MRUKFeature(this, systemManager))
     if (BuildConfig.DEBUG) {
-      features.add(CastInputForwardFeature(this))
+      //features.add(CastInputForwardFeature(this))
     }
     return features
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-
-    // Add a system to remove objects that fall 100 meters below the floor
-    systemManager.registerSystem(
-        PhysicsOutOfBoundsSystem(spatial).apply { setBounds(minY = -100.0f) })
-    systemManager.registerSystem(UiPanelUpdateSystem())
 
     val mrukSystem = systemManager.findSystem<MRUKSystem>()
 
@@ -87,6 +84,8 @@ class MixedRealitySampleActivity : AppSystemActivity() {
       val composition = glXFManager.getGLXFInfo(GLXF_SCENE)
       val bball = composition.getNodeByName("BasketBall").entity
       val mesh = bball.getComponent<Mesh>()
+
+
       ballShooter = BallShooter(mesh)
       systemManager.registerSystem(ballShooter!!)
 
@@ -132,6 +131,28 @@ class MixedRealitySampleActivity : AppSystemActivity() {
         sunDirection = -Vector3(1.0f, 3.0f, -2.0f),
         environmentIntensity = 0.3f)
     scene.updateIBLEnvironment("environment.env")
+  }
+
+  override fun onSceneTick() {
+    super.onSceneTick()
+    // Check for the body entity every tick until we find it
+      if (!foundBody) {
+        foundBody = getBodyEntity() != null
+        if (foundBody) {
+            getBodyEntity()?.setComponent((Physics(shape = "box", state = PhysicsState.KINEMATIC, dimensions = Vector3(1f, 1f, 2f))))
+          println("DEBUG: Added collider to body")
+            var bodyEntity = getBodyEntity()
+            addPortalEventListener(bodyEntity)
+        }
+    }
+  }
+
+  fun getBodyEntity(): Entity? {
+    val body: Entity? =
+      Query.where { changed(AvatarBody.id) }
+        .eval()
+        .firstOrNull()
+    return body
   }
 
   override fun onRequestPermissionsResult(
@@ -187,6 +208,25 @@ class MixedRealitySampleActivity : AppSystemActivity() {
     return true
   }
 
+  fun addPortalEventListener(playerBody: Entity?) {
+    if (playerBody !== null) {
+      loadGLXF().invokeOnCompletion {
+        val composition = glXFManager.getGLXFInfo(GLXF_SCENE)
+        val portal = composition.getNodeByName("portal").entity
+        // Detect when the user's body collides with the portal, which indicates the user has stepped into the portal.
+        portal.registerEventListener<PhysicsCollisionCallbackEventArgs>(
+          PhysicsCollisionCallbackEventArgs.EVENT_NAME) { Entity, eventArgs ->
+          println("DEBUG: Object of ID ${Entity.id} collided with portal")
+          if (Entity.id == playerBody.id) {
+            println("DEBUG: Collided with the body!")
+          }
+          eventArgs.throttleTime = 200
+        }
+        println("DEBUG: Body id is ${playerBody.id} ")
+      }
+    }
+  }
+
   private fun loadGLXF(): Job {
     gltfxEntity = Entity.create()
     return activityScope.launch {
@@ -208,3 +248,4 @@ class MixedRealitySampleActivity : AppSystemActivity() {
 fun log(msg: String) {
   Log.d(MixedRealitySampleActivity.TAG, msg)
 }
+

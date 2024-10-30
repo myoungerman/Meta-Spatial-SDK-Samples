@@ -5,10 +5,10 @@ entities:
     com.meta.components.PbrMaterial:
       alphaCutoff: 0.5
       alphaMode: Opaque
-      baseColorFactor.colorspace: HSL
+      baseColorFactor.colorspace: RGB
       baseColorFactor.data:
-        - 30.7963371
-        - 0
+        - 1
+        - 1
         - 1
         - 1
       baseColorFactor.type: color4

@@ -5,12 +5,12 @@ entities:
           {}
         com.meta.components.Scene:
           nodes:
+            - ref:portal
+            - ref:playerFigure
+            - ref:board
             - ref:defaultFloor
             - ref:BasketBall
             - ref:Panel
-            - ref:target0
-            - ref:target1
-            - ref:target2
       tag: Scene
   com.meta.models.SceneNode:
     - components:
@@ -27,12 +27,24 @@ entities:
           rotation.format: Quaternion
           scale:
             - 2
-            - 1.5
+            - 1.29999995
             - 1
           translation:
             - 0
             - 1.10000002
             - -1.70000005
+        com.meta.spatial.physics.Physics:
+          angularVelocity:
+            - 0
+            - 0
+            - 0
+          state: 0
+          shape: box
+          dimensions:
+            - 1
+            - 0.649999976
+            - 0.00999999978
+          restitution: 0.90000000000000002
         com.meta.spatial.toolkit.Grabbable:
           enabled: true
           type: 0
@@ -77,13 +89,13 @@ entities:
             - -0.0500000007
             - 0
         com.meta.spatial.physics.Physics:
+          shape: box
+          state: 0
+          restitution: 0.80000000000000004
           dimensions:
             - 10
             - 0.00999999978
             - 10
-          state: 0
-          restitution: 0.80000000000000004
-          shape: box
         com.meta.spatial.toolkit.Visible:
           isVisible: false
       tag: defaultFloor
@@ -92,90 +104,61 @@ entities:
           {}
         com.meta.components.DocumentReference:
           transformType: None
-          documentReference: projref:target/Main.metaspatialobj
+          documentReference: projref:cube/Main.metaspatialobj
         com.meta.components.Name:
-          name: target0
+          name: board
         com.meta.components.SceneNode:
-          rotation.data:
-            - 0.863767862
-            - -1.02826052e-15
-            - -0.503889918
-            - -5.0378592e-08
-          rotation.format: Quaternion
+          rotation.format: Euler
           scale:
-            - 1
-            - 1
-            - 1
+            - 0.73301512
+            - 0.0165411662
+            - 0.419277579
           translation:
-            - -1.8855685
-            - 1.25126576
-            - 1.13587368
-        com.meta.spatial.physics.Physics:
-          shape: target.glb
-          restitution: 0.80000000000000004
-          state: 0
+            - 0
+            - 0.769999981
+            - -1.25
         com.meta.spatial.toolkit.Grabbable:
-          type: 0
-      tag: target0
+          {}
+      tag: board
     - components:
         com.meta.components.Animatable:
           {}
         com.meta.components.DocumentReference:
           transformType: None
-          documentReference: projref:target/Main.metaspatialobj
+          documentReference: projref:cylinder/Main.metaspatialobj
         com.meta.components.Name:
-          name: target1
+          name: playerFigure
         com.meta.components.SceneNode:
-          rotation.data:
-            - -0.325533599
-            - -0.125351667
-            - 0.89979279
-            - 0.262083471
-          rotation.format: Quaternion
+          rotation.format: Euler
           scale:
-            - 1
-            - 1
-            - 1
+            - 0.309546143
+            - 0.309546143
+            - 0.309546143
           translation:
-            - -1.8855685
-            - 1.96000004
-            - -1.31692994
-        com.meta.spatial.physics.Physics:
-          state: 0
-          restitution: 0.80000000000000004
-          shape: target.glb
-        com.meta.spatial.toolkit.Grabbable:
-          type: 0
-      tag: target1
+            - -0.453295588
+            - 0.845418096
+            - -1.25
+      tag: playerFigure
     - components:
         com.meta.components.Animatable:
           {}
         com.meta.components.DocumentReference:
           transformType: None
-          documentReference: projref:target/Main.metaspatialobj
+          documentReference: projref:cube/Main.metaspatialobj
         com.meta.components.Name:
-          name: target2
+          name: portal
         com.meta.components.SceneNode:
-          rotation.data:
-            - 0.520660996
-            - -0.284600586
-            - 0.802814603
-            - 0.058337491
-          rotation.format: Quaternion
+          rotation.format: Euler
           scale:
-            - 1
-            - 1
-            - 1
+            - 0.0365667492
+            - 0.683403969
+            - 0.450227916
           translation:
-            - 1.90848315
-            - 1.96000004
-            - -0.800049663
+            - -0.538429737
+            - 0.70003891
+            - 0
         com.meta.spatial.physics.Physics:
-          shape: target.glb
-          restitution: 0.80000000000000004
           state: 0
-        com.meta.spatial.toolkit.Grabbable:
-          type: 0
-      tag: target2
+      tag: portal
 metadata:
   version: 1.0

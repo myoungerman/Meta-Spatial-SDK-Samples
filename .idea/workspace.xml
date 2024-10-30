@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="NONE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="5cb7d71e-d029-417e-8aa0-82e69c1e28ff" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/CustomComponentsSample/app/scenes/components.json" beforeDir="false" afterPath="$PROJECT_DIR$/CustomComponentsSample/app/scenes/components.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CustomComponentsSample/app/src/main/java/com/meta/spatial/samples/customcomponentssample/CustomComponentsSampleActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/CustomComponentsSample/app/src/main/java/com/meta/spatial/samples/customcomponentssample/CustomComponentsSampleActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MixedRealitySample/app/scenes/components.json" beforeDir="false" afterPath="$PROJECT_DIR$/MixedRealitySample/app/scenes/components.json" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 5
+}]]></component>
+  <component name="ProjectId" id="2nRXrV0KaYEXgWgKzfNbXLw6oPi" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "RunOnceActivity.readMode.enableVisualFormatting": "true",
+    "cf.first.check.clang-format": "false",
+    "cidr.known.project.marker": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/mcyoungerman/Documents/repos/Meta-Spatial-SDK-Samples"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="5cb7d71e-d029-417e-8aa0-82e69c1e28ff" name="Changes" comment="" />
+      <created>1728937060769</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1728937060769</updated>
+    </task>
+    <servers />
+  </component>
+</project>
